@@ -1,7 +1,6 @@
 const express = require('express');
 
 const app = express();
-app.enable('trust proxy');
 
 const {Datastore} = require('@google-cloud/datastore');
 
@@ -34,11 +33,7 @@ app.get('/getCustomer',async (req, res, next) => {
     [entities] =  await getCustomerByID(customer_ID);
     entities = entities[0];
     try {
-      res
-        .status(200)
-        .set('Content-Type', 'text/plain')
-        .send(entities)
-        .end();
+      res.send(entities);
     } catch (error) {
       next(error);
     }
@@ -49,11 +44,7 @@ app.get('/getCustomers', async (req, res, next) => {
   const [entities] = await getAllCustomers();
 
   try {
-    res
-      .status(200)
-      .set('Content-Type', 'text/plain')
-      .send(entities)
-      .end();
+    res.send(entities);
   } catch (error) {
     next(error);
   }
