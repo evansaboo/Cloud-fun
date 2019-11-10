@@ -6,12 +6,12 @@ const {Datastore} = require('@google-cloud/datastore');
 
 // Instantiate a datastore client
 const datastore = new Datastore();
-
+const TABLE_NAME = 'Customers';
 
 const getCustomerByID = (id) => {
 
   const query = datastore
-    .createQuery('Customers')
+    .createQuery(TABLE_NAME)
     .filter('Id', '=',  id)
     .limit(1);
 
@@ -20,7 +20,7 @@ const getCustomerByID = (id) => {
 
 const getAllCustomers = () => {
   const query = datastore
-    .createQuery('Customers');
+    .createQuery(TABLE_NAME);
 
   return datastore.runQuery(query);
 };
