@@ -27,13 +27,12 @@ const getAllCustomers = () => {
 
 app.get('/getCustomer',async (req, res, next) => {
   var customer_ID = Number(req.query.id);
-  var entities = {};
 
   if(typeof(customer_ID) == 'number') {
-    [entities] =  await getCustomerByID(customer_ID);
+    var [entities] =  await getCustomerByID(customer_ID);
     entities = entities[0];
     try {
-      res.send(entities);
+      res.json(entities);
     } catch (error) {
       next(error);
     }
@@ -44,7 +43,7 @@ app.get('/getCustomers', async (req, res, next) => {
   const [entities] = await getAllCustomers();
 
   try {
-    res.send(entities);
+    res.json(entities);
   } catch (error) {
     next(error);
   }
